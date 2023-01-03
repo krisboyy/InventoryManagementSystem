@@ -11,6 +11,7 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 import subprocess
 import os
 import mysql.connector
+import time
 
 cnx = mysql.connector.connect(
     host="localhost",
@@ -19,6 +20,8 @@ cnx = mysql.connector.connect(
     database="inventory"
 )
 cursor = cnx.cursor()
+with open("current_user.txt", "w") as f:
+                f.write("")
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\nykkr\Dropbox\DBMS Project\InventoryManagementSystem\build\assets\frame1")
@@ -128,6 +131,8 @@ canvas.create_text(
     font=("Inter Black", 24 * -1)
 )
 
+    
+
 file_path=r"C:\Users\nykkr\Dropbox\DBMS Project\InventoryManagementSystem\build\gui.py"
 permissions = 0o755  # octal notation for permissions
 
@@ -143,6 +148,9 @@ def check_pw():
     if result:
         if result[0]==user_id and result[1]==passw:
             print("Successful login")
+            with open("current_user.txt", "w") as f:
+                f.write(user_id)
+            time.sleep(1)
             open_file()
 
         else:
